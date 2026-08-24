@@ -119,3 +119,6 @@ kubectl patch svc qwen257 -n default --type='merge' -p '{
     ]
   }
 }'
+
+kubectl patch deployment qwen257 -n default --type='merge' -p '{"metadata":{"labels":{"model.aibrix.ai/min_replicas":"1"}}}'
+kubectl patch podautoscaler qwen257-autoscaler -n default --type='merge' -p '{"metadata":{"labels":{"app.kubernetes.io/name":"aibrix"}}}'
