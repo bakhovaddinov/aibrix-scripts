@@ -1,18 +1,31 @@
-{"time": "2026-08-21 11:50:34,412", "level": "INFO", "logger": "aibrix.gpu_optimizer", "message": "Looking for deployments with model.aibrix.ai/name"}
-{"time": "2026-08-21 12:00:34,427", "level": "INFO", "logger": "aibrix.gpu_optimizer", "message": "Looking for deployments with model.aibrix.ai/name"}
-{"time": "2026-08-21 12:10:34,443", "level": "INFO", "logger": "aibrix.gpu_optimizer", "message": "Looking for deployments with model.aibrix.ai/name"}
-{"time": "2026-08-21 12:20:34,460", "level": "INFO", "logger": "aibrix.gpu_optimizer", "message": "Looking for deployments with model.aibrix.ai/name"}
-{"time": "2026-08-21 12:28:46,393", "level": "WARNING", "logger": "aibrix.gpu_optimizer.profile_reader", "message": "No profiles matching aibrix:profile_qwen257_* found in Redis"}
-{"time": "2026-08-21 12:28:46,393", "level": "WARNING", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "No GPU profile found for default/qwen257. Optimizer will skip the GPU."}
-{"time": "2026-08-21 12:28:46,394", "level": "INFO", "logger": "aibrix.gpu_optimizer", "message": "New model monitor started for "qwen257". Deployment "default/qwen257" added."}
-{"time": "2026-08-21 12:28:46,394", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_reader", "message": "No pre-existed load profile matching aibrix:qwen257_request_trace_* found in Redis"}
-{"time": "2026-08-21 12:28:46,394", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $inf. Detailed Configuration:[qwen257: 1($inf)]"}
-{"time": "2026-08-21 12:28:46,510", "level": "WARNING", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "No GPU profile found for default/qwen257. Optimizer will skip the GPU."}
-{"time": "2026-08-21 12:28:46,524", "level": "WARNING", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "No GPU profile found for default/qwen257. Optimizer will skip the GPU."}
-{"time": "2026-08-21 12:28:46,546", "level": "WARNING", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "No GPU profile found for default/qwen257. Optimizer will skip the GPU."}
-{"time": "2026-08-21 12:28:58,395", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $inf. Detailed Configuration:[qwen257: 1($inf)]"}
-{"time": "2026-08-21 12:29:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $inf. Detailed Configuration:[qwen257: 1($inf)]"}
-{"time": "2026-08-21 12:29:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $inf. Detailed Configuration:[qwen257: 1($inf)]"}
-
-REDIS_POD=$(kubectl get pods -n aibrix-system -l app.kubernetes.io/component=redis -o jsonpath='{.items[0].metadata.name}')
-kubectl exec -it $REDIS_POD -n aibrix-system -- redis-cli keys "aibrix:profile*"
+f703-4e99-9875-ee7050f62664" "pod_name" "qwen257-7567ccc445-djqp9" "namespace" "default" "node_name" "n2" "requests_running" "0" "seq" "0" "update_time" "14:59:36.718"
+1787583578.019415 [0 10.250.217.56:36918] "pexpire" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "500"
+1787583578.019629 [0 10.250.217.56:36918] "scan" "0" "match" "aibrix:pod:*" "count" "500"
+1787583578.019894 [0 10.250.217.56:36918] "hgetall" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9"
+1787583578.119464 [0 10.250.217.56:36918] "hset" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "namespace" "default" "node_name" "n2" "requests_running" "0" "seq" "0" "update_time" "14:59:36.818" "gateway_instance_id" "aibrix-gateway-plugins-666fbf6c56-2vslx" "pod_uid" "f3bb41d0-f703-4e99-9875-ee7050f62664" "pod_name" "qwen257-7567ccc445-djqp9"
+1787583578.119481 [0 10.250.217.56:36918] "pexpire" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "500"
+1787583578.119712 [0 10.250.217.56:36918] "scan" "0" "match" "aibrix:pod:*" "count" "500"
+1787583578.119970 [0 10.250.217.56:36918] "hgetall" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9"
+1787583578.220051 [0 10.250.217.56:36918] "hset" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "pod_uid" "f3bb41d0-f703-4e99-9875-ee7050f62664" "pod_name" "qwen257-7567ccc445-djqp9" "namespace" "default" "node_name" "n2" "requests_running" "0" "seq" "0" "update_time" "14:59:36.919" "gateway_instance_id" "aibrix-gateway-plugins-666fbf6c56-2vslx"
+1787583578.220067 [0 10.250.217.56:36918] "pexpire" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "500"
+1787583578.220560 [0 10.250.217.56:36918] "scan" "0" "match" "aibrix:pod:*" "count" "500"
+1787583578.220825 [0 10.250.217.56:36918] "hgetall" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9"
+1787583578.319428 [0 10.250.217.56:36918] "hset" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "namespace" "default" "node_name" "n2" "requests_running" "0" "seq" "0" "update_time" "14:59:37.018" "gateway_instance_id" "aibrix-gateway-plugins-666fbf6c56-2vslx" "pod_uid" "f3bb41d0-f703-4e99-9875-ee7050f62664" "pod_name" "qwen257-7567ccc445-djqp9"
+1787583578.319446 [0 10.250.217.56:36918] "pexpire" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "500"
+1787583578.319932 [0 10.250.217.56:36918] "scan" "0" "match" "aibrix:pod:*" "count" "500"
+1787583578.320189 [0 10.250.217.56:36918] "hgetall" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9"
+1787583578.419344 [0 10.250.217.56:36918] "hset" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "requests_running" "0" "seq" "0" "update_time" "14:59:37.118" "gateway_instance_id" "aibrix-gateway-plugins-666fbf6c56-2vslx" "pod_uid" "f3bb41d0-f703-4e99-9875-ee7050f62664" "pod_name" "qwen257-7567ccc445-djqp9" "namespace" "default" "node_name" "n2"
+1787583578.419362 [0 10.250.217.56:36918] "pexpire" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "500"
+1787583578.419835 [0 10.250.217.56:36918] "scan" "0" "match" "aibrix:pod:*" "count" "500"
+1787583578.420085 [0 10.250.217.56:36918] "hgetall" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9"
+1787583578.519478 [0 10.250.217.56:36918] "hset" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "namespace" "default" "node_name" "n2" "requests_running" "0" "seq" "0" "update_time" "14:59:37.218" "gateway_instance_id" "aibrix-gateway-plugins-666fbf6c56-2vslx" "pod_uid" "f3bb41d0-f703-4e99-9875-ee7050f62664" "pod_name" "qwen257-7567ccc445-djqp9"
+1787583578.519499 [0 10.250.217.56:36918] "pexpire" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "500"
+1787583578.520036 [0 10.250.217.56:36918] "scan" "0" "match" "aibrix:pod:*" "count" "500"
+1787583578.520284 [0 10.250.217.56:36918] "hgetall" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9"
+1787583578.569547 [0 10.250.202.71:50240] "GET" "batchjob_meta:oldest_unfinished_created_at"
+1787583578.569784 [0 10.250.202.71:50240] "EXISTS" "batchjob::index"
+1787583578.569964 [0 10.250.202.71:50240] "ZRANGE" "timestamps:all" "0" "-1"
+1787583578.619511 [0 10.250.217.56:36918] "hset" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "seq" "0" "update_time" "14:59:37.318" "gateway_instance_id" "aibrix-gateway-plugins-666fbf6c56-2vslx" "pod_uid" "f3bb41d0-f703-4e99-9875-ee7050f62664" "pod_name" "qwen257-7567ccc445-djqp9" "namespace" "default" "node_name" "n2" "requests_running" "0"
+1787583578.619526 [0 10.250.217.56:36918] "pexpire" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9" "500"
+1787583578.619761 [0 10.250.217.56:36918] "scan" "0" "match" "aibrix:pod:*" "count" "500"
+1787583578.620029 [0 10.250.217.56:36918] "hgetall" "aibrix:pod:aibrix-gateway-plugins-666fbf6c56-2vslx:default:qwen257-7567ccc445-djqp9"
