@@ -1,0 +1,2 @@
+kubectl exec -i aibrix-redis-master-56cbb99b6b-smzvt -n aibrix-system -- redis-cli keys "aibrix:qwen257_request_trace*"
+kubectl logs -n aibrix-system deploy/aibrix-gpu-optimizer --tail=50 | grep -i "qwen257"
