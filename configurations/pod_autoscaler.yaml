@@ -3,17 +3,13 @@ kind: PodAutoscaler
 metadata:
   name: qwen257-prefill-autoscaler
   namespace: default
-  annotations:
-    autoscaling.aibrix.ai/storm-service-mode: "pool"
 spec:
   scalingStrategy: KPA
   scaleTargetRef:
-    apiVersion: orchestration.aibrix.ai/v1alpha1
-    kind: StormService
+    apiVersion: apps/v1
+    kind: Deployment
     name: qwen257
-  subTargetSelector:
-    roleName: prefill
-  minReplicas: 1
+  minReplicas: 0
   maxReplicas: 4
   metricsSources:
     - endpoint: aibrix-gpu-optimizer.aibrix-system.svc.cluster.local:8080

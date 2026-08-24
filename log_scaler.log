@@ -1,0 +1,61 @@
+(base) [root@m1 configurations]# kubectl apply -f pod_autoscaler.yaml 
+podautoscaler.autoscaling.aibrix.ai/qwen257-prefill-autoscaler created
+(base) [root@m1 configurations]# kubectl get podautoscalers
+NAME                         MINPODS   MAXPODS   REPLICAS   STRATEGY   AGE
+qwen257-prefill-autoscaler   0         4                    KPA        6s
+(base) [root@m1 configurations]# kubectl get podautoscalers
+NAME                         MINPODS   MAXPODS   REPLICAS   STRATEGY   AGE
+qwen257-prefill-autoscaler   0         4                    KPA        8s
+(base) [root@m1 configurations]# kubectl get podautoscalers
+NAME                         MINPODS   MAXPODS   REPLICAS   STRATEGY   AGE
+qwen257-prefill-autoscaler   0         4                    KPA        19s
+(base) [root@m1 configurations]# kubectl describe podautoscaler qwen257-prefill-autoscaler -n default
+Name:         qwen257-prefill-autoscaler
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+API Version:  autoscaling.aibrix.ai/v1alpha1
+Kind:         PodAutoscaler
+Metadata:
+  Creation Timestamp:  2026-08-24T12:34:20Z
+  Generation:          1
+  Resource Version:    52423406
+  UID:                 7255fb5f-bcdf-4ccb-935f-e400318f48f6
+Spec:
+  Max Replicas:  4
+  Metrics Sources:
+    Endpoint:            aibrix-gpu-optimizer.aibrix-system.svc.cluster.local:8080
+    Metric Source Type:  domain
+    Path:                /metrics/default/qwen257
+    Protocol Type:       http
+    Target Metric:       vllm:deployment_replicas
+    Target Value:        100
+  Min Replicas:          0
+  Scale Target Ref:
+    API Version:     apps/v1
+    Kind:            Deployment
+    Name:            qwen257
+  Scaling Strategy:  KPA
+Status:
+  Conditions:
+    Last Transition Time:  2026-08-24T12:34:20Z
+    Message:               successfully retrieved target scale
+    Reason:                SucceededGetScale
+    Status:                True
+    Type:                  AbleToScale
+    Last Transition Time:  2026-08-24T12:34:20Z
+    Message:               
+    Reason:                AsExpected
+    Status:                True
+    Type:                  ValidSpec
+    Last Transition Time:  2026-08-24T12:34:20Z
+    Message:               desired=0, actual=0
+    Reason:                Stable
+    Status:                False
+    Type:                  ScalingActive
+    Last Transition Time:  2026-08-24T12:34:20Z
+    Message:               
+    Reason:                AsExpected
+    Status:                True
+    Type:                  Ready
+Events:                    <none>
