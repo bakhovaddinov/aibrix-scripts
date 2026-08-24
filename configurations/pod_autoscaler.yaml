@@ -3,6 +3,8 @@ kind: PodAutoscaler
 metadata:
   name: qwen257-prefill-autoscaler
   namespace: default
+  labels:
+    app.kubernetes.io/name: aibrix
 spec:
   scalingStrategy: KPA
   scaleTargetRef:
@@ -17,4 +19,4 @@ spec:
       path: /metrics/default/qwen257
       protocolType: http
       targetMetric: vllm:deployment_replicas
-      targetValue: "100"
+      targetValue: "1"
