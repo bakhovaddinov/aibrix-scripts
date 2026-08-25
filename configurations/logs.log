@@ -51,3 +51,75 @@ kubectl describe gateway aibrix-eg -n aibrix-system | grep -A 20 Conditions
       Type:                  ResolvedRefs
     Name:                    http
     Supported Kinds:
+
+    curl -s -X POST http://localhost:31753/v1/chat/completions \
+      -H "Content-Type: application/json" \
+      -d '{
+        "model": "qwen257",
+        "messages": [{"role": "user", "content": "Write a short paragraph about cloud computing."}],
+        "max_tokens": 3000
+      }'
+
+      kubectl get httproute qwen257-router -n aibrix-system -o yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"gateway.networking.k8s.io/v1","kind":"HTTPRoute","metadata":{"annotations":{},"name":"qwen257-router","namespace":"aibrix-system"},"spec":{"parentRefs":[{"group":"gateway.networking.k8s.io","kind":"Gateway","name":"aibrix-eg","namespace":"aibrix-system"}],"rules":[{"backendRefs":[{"group":"","kind":"Service","name":"qwen257","namespace":"default","port":8008}],"matches":[{"headers":[{"name":"model","type":"Exact","value":"qwen257"}],"path":{"type":"PathPrefix","value":"/v1/chat/completions"}},{"headers":[{"name":"model","type":"Exact","value":"qwen257"}],"path":{"type":"PathPrefix","value":"/v1/completions"}}]}]}}
+  creationTimestamp: "2026-08-21T11:42:44Z"
+  generation: 1
+  name: qwen257-router
+  namespace: aibrix-system
+  resourceVersion: "52462983"
+  uid: 8346fa9d-cbdb-45c5-9b41-faa853ebc864
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: aibrix-eg
+    namespace: aibrix-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: qwen257
+      namespace: default
+      port: 8008
+      weight: 1
+    matches:
+    - headers:
+      - name: model
+        type: Exact
+        value: qwen257
+      path:
+        type: PathPrefix
+        value: /v1/chat/completions
+    - headers:
+      - name: model
+        type: Exact
+        value: qwen257
+      path:
+        type: PathPrefix
+        value: /v1/completions
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2026-08-24T14:02:16Z"
+      message: Route is accepted
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2026-08-24T14:02:16Z"
+      message: Resolved all the Object references for the Route
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: gateway.envoyproxy.io/gatewayclass-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: aibrix-eg
+      namespace: aibrix-system
