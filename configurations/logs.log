@@ -160,3 +160,4 @@ spec:
   - group: ""
     kind: Service
 EOF
+kubectl logs -n aibrix-system deploy/aibrix-gateway-plugins | grep -iE "trace|error|routing|metadata|skip" | tail -n 25
