@@ -129,9 +129,8 @@ echo "Firing sustained load with correct headers..."
 for i in {1..4}; do
   (
     while true; do
-      curl -s -X POST http://<YOUR_ENVOY_NODE_IP>:<3xxxx_PORT>/v1/chat/completions \
+      curl -s -X POST http://localhost:31753/v1/chat/completions \
       -H "Content-Type: application/json" \
-      -H "model: qwen257" \
       -d '{
         "model": "qwen257",
         "messages": [{"role": "user", "content": "Write a short paragraph about cloud computing."}],
@@ -145,19 +144,36 @@ done
 sleep 30
 kill ${pids[*]} 2>/dev/null
 echo "Load test stopped."
-cat <<EOF | kubectl apply -f -
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: aibrix-default-grant
-  namespace: default
-spec:
-  from:
-  - group: gateway.networking.k8s.io
-    kind: HTTPRoute
-    namespace: aibrix-system
-  to:
-  - group: ""
-    kind: Service
-EOF
-kubectl logs -n aibrix-system deploy/aibrix-gateway-plugins | grep -iE "trace|error|routing|metadata|skip" | tail -n 25
+
+(base) [root@m1 configurations]# kubectl logs -n aibrix-system deploy/aibrix-gateway-plugins | tail -n 30
+Defaulted container "gateway-plugin" out of: gateway-plugin, init-c (init)
+I0825 10:44:00.128152       1 gateway.go:170] "processing request" requestID="9434a7c3-93c7-4e09-9bf0-85682d0a1212"
+I0825 10:44:00.128576       1 gateway_req_body.go:127] "request_start" request_id="9434a7c3-93c7-4e09-9bf0-85682d0a1212" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 10:44:00.514157       1 gateway_rsp_body.go:206] "request_end" request_id="c8d964bf-72e6-48c8-adee-fcad9b4f2cbf" model_name="qwen257" prompt_tokens=37 completion_tokens=111 total_tokens=148 total_time_taken="2.439424522s"
+I0825 10:44:00.528293       1 gateway.go:170] "processing request" requestID="d86a603f-bcdd-4b7b-abd5-5eb7e20ee44f"
+I0825 10:44:00.529014       1 gateway_req_body.go:127] "request_start" request_id="d86a603f-bcdd-4b7b-abd5-5eb7e20ee44f" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 10:44:01.753986       1 gateway_rsp_body.go:206] "request_end" request_id="3f29a829-4f5c-4a82-8d0f-35b38193c668" model_name="qwen257" prompt_tokens=37 completion_tokens=101 total_tokens=138 total_time_taken="2.286023135s"
+I0825 10:44:01.766013       1 gateway.go:170] "processing request" requestID="fca7b2a6-475a-439b-b825-5b191e2816ab"
+I0825 10:44:01.766596       1 gateway_req_body.go:127] "request_start" request_id="fca7b2a6-475a-439b-b825-5b191e2816ab" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 10:44:02.749244       1 gateway_rsp_body.go:206] "request_end" request_id="abc74b17-7553-4e97-a63e-8b31f4be814e" model_name="qwen257" prompt_tokens=37 completion_tokens=125 total_tokens=162 total_time_taken="2.72916118s"
+I0825 10:44:02.761064       1 gateway.go:170] "processing request" requestID="5a445483-7d08-4430-9913-ab596714305c"
+I0825 10:44:02.761690       1 gateway_req_body.go:127] "request_start" request_id="5a445483-7d08-4430-9913-ab596714305c" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 10:44:02.959466       1 gateway_rsp_body.go:206] "request_end" request_id="d86a603f-bcdd-4b7b-abd5-5eb7e20ee44f" model_name="qwen257" prompt_tokens=37 completion_tokens=112 total_tokens=149 total_time_taken="2.43100959s"
+I0825 10:44:02.971115       1 gateway.go:170] "processing request" requestID="a5f2f164-4172-409a-9a8e-c8f1914cd862"
+I0825 10:44:02.971579       1 gateway_req_body.go:127] "request_start" request_id="a5f2f164-4172-409a-9a8e-c8f1914cd862" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 10:44:02.989820       1 gateway_rsp_body.go:206] "request_end" request_id="9434a7c3-93c7-4e09-9bf0-85682d0a1212" model_name="qwen257" prompt_tokens=37 completion_tokens=130 total_tokens=167 total_time_taken="2.861544959s"
+I0825 10:44:03.003788       1 gateway.go:170] "processing request" requestID="5a9d81b1-5788-4a7e-990c-89f16e47fa8c"
+I0825 10:44:03.004239       1 gateway_req_body.go:127] "request_start" request_id="5a9d81b1-5788-4a7e-990c-89f16e47fa8c" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 10:44:04.052335       1 gateway_rsp_body.go:206] "request_end" request_id="fca7b2a6-475a-439b-b825-5b191e2816ab" model_name="qwen257" prompt_tokens=37 completion_tokens=105 total_tokens=142 total_time_taken="2.286148556s"
+I0825 10:44:04.065956       1 gateway.go:170] "processing request" requestID="ed4cf4cf-fa5f-44a8-bedb-d5bf21e0fc12"
+I0825 10:44:04.066536       1 gateway_req_body.go:127] "request_start" request_id="ed4cf4cf-fa5f-44a8-bedb-d5bf21e0fc12" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 10:44:05.131433       1 gateway_rsp_body.go:206] "request_end" request_id="5a9d81b1-5788-4a7e-990c-89f16e47fa8c" model_name="qwen257" prompt_tokens=37 completion_tokens=98 total_tokens=135 total_time_taken="2.127492949s"
+I0825 10:44:05.558942       1 gateway_rsp_body.go:206] "request_end" request_id="5a445483-7d08-4430-9913-ab596714305c" model_name="qwen257" prompt_tokens=37 completion_tokens=128 total_tokens=165 total_time_taken="2.797694837s"
+I0825 10:44:06.017856       1 gateway_rsp_body.go:206] "request_end" request_id="a5f2f164-4172-409a-9a8e-c8f1914cd862" model_name="qwen257" prompt_tokens=37 completion_tokens=141 total_tokens=178 total_time_taken="3.046592606s"
+I0825 10:44:06.401855       1 gateway_rsp_body.go:206] "request_end" request_id="ed4cf4cf-fa5f-44a8-bedb-d5bf21e0fc12" model_name="qwen257" prompt_tokens=37 completion_tokens=112 total_tokens=149 total_time_taken="2.33571683s"
+I0825 10:53:13.515684       1 gateway.go:170] "processing request" requestID="e5f4a567-2170-47eb-ae41-f6c90dee1af8"
+I0825 10:53:13.521180       1 gateway_req_body.go:127] "request_start" request_id="e5f4a567-2170-47eb-ae41-f6c90dee1af8" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 10:53:15.528528       1 gateway_rsp_body.go:206] "request_end" request_id="e5f4a567-2170-47eb-ae41-f6c90dee1af8" model_name="qwen257" prompt_tokens=37 completion_tokens=107 total_tokens=144 total_time_taken="2.012609141s"
+I0825 10:54:09.878834       1 gateway.go:170] "processing request" requestID="c876a543-49c4-4ddb-bbcf-daa11edc0f81"
+I0825 10:54:09.883723       1 gateway_req_body.go:127] "request_start" request_id="c876a543-49c4-4ddb-bbcf-daa11edc0f81" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 10:54:12.115620       1 gateway_rsp_body.go:206] "request_end" request_id="c876a543-49c4-4ddb-bbcf-daa11edc0f81" model_name="qwen257" prompt_tokens=37 completion_tokens=118 total_tokens=155 total_time_taken="2.236567561s"
