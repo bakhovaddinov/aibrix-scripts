@@ -32,6 +32,7 @@ spec:
         app.kubernetes.io/name: qwen257
         model.aibrix.ai/name: qwen257
         model.aibrix.ai/port: "8008"
+        adapter.model.aibrix.ai/enabled: "true"
         model.aibrix.ai/engine: vllm
       annotations:
         model.aibrix.ai/config: |

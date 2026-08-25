@@ -1,0 +1,115 @@
+1. (base) [root@m1 configurations]# kubectl logs -n aibrix-system deploy/aibrix-gateway-plugins | grep -iE "inputTokens|DoneRequestTrace|qwen257"
+Defaulted container "gateway-plugin" out of: gateway-plugin, init-c (init)
+I0825 13:35:15.697354       1 gateway_req_body.go:127] "request_start" request_id="833145c6-d383-4feb-a480-c2b2125cec57" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 13:35:16.704578       1 gateway_rsp_body.go:206] "request_end" request_id="833145c6-d383-4feb-a480-c2b2125cec57" model_name="qwen257" prompt_tokens=35 completion_tokens=50 total_tokens=85 total_time_taken="1.013750561s"
+I0825 13:38:43.538418       1 gateway_req_body.go:127] "request_start" request_id="3bbb1327-b4bf-43e2-a4d4-0232f02d716c" request_path="/v1/chat/completions" model="qwen257" stream=false
+E0825 13:38:58.538341       1 gateway.go:289] "client closed stream (EOF) before completion" requestID="3bbb1327-b4bf-43e2-a4d4-0232f02d716c" model="qwen257"
+I0825 13:40:51.569599       1 gateway_req_body.go:127] "request_start" request_id="356e8995-678e-4ded-a623-67c6d8e36938" request_path="/v1/chat/completions" model="qwen257" stream=true
+E0825 13:41:06.568264       1 gateway.go:289] "client closed stream (EOF) before completion" requestID="356e8995-678e-4ded-a623-67c6d8e36938" model="qwen257"
+I0825 13:43:29.181330       1 gateway_req_body.go:127] "request_start" request_id="aa4a9193-c314-4e1c-8d12-3f4a6001932b" request_path="/v1/chat/completions" model="qwen257" stream=true
+I0825 13:43:29.181353       1 gateway_req_body.go:127] "request_start" request_id="bc1c8b89-af0b-4975-9a18-4c292451ce38" request_path="/v1/chat/completions" model="qwen257" stream=true
+I0825 13:43:29.181396       1 gateway_req_body.go:127] "request_start" request_id="c4cfe3a4-158d-451d-a963-9d737a82806f" request_path="/v1/chat/completions" model="qwen257" stream=true
+I0825 13:43:29.181336       1 gateway_req_body.go:127] "request_start" request_id="69a19c55-2198-4055-82ab-e7e9670bcb48" request_path="/v1/chat/completions" model="qwen257" stream=true
+E0825 13:43:44.179693       1 gateway.go:289] "client closed stream (EOF) before completion" requestID="c4cfe3a4-158d-451d-a963-9d737a82806f" model="qwen257"
+E0825 13:43:44.179934       1 gateway.go:289] "client closed stream (EOF) before completion" requestID="aa4a9193-c314-4e1c-8d12-3f4a6001932b" model="qwen257"
+I0825 14:04:12.318948       1 gateway_req_body.go:127] "request_start" request_id="6ae31aea-32c0-4a68-80da-939624c47e14" request_path="/v1/chat/completions" model="qwen257" stream=false
+I0825 14:04:15.747658       1 gateway_rsp_body.go:206] "request_end" request_id="6ae31aea-32c0-4a68-80da-939624c47e14" model_name="qwen257" prompt_tokens=35 completion_tokens=50 total_tokens=85 total_time_taken="3.433913739s"
+2. kubectl exec -i aibrix-redis-master-56cbb99b6b-smzvt -n aibrix-system -- redis-cli keys "aibrix:*qwen257*"
+aibrix:profile_qwen257_qwen257
+aibrix:pod:aibrix-gateway-plugins-6c9f7cfc45-46lv5:default:qwen257-5bdd474d9b-hf9v6
+aibrix:profile_qwen257_ascend910b
+
+3. kubectl logs -n aibrix-system deploy/aibrix-gpu-optimizer | grep -iE "trace|profile|qwen257"
+{"time": "2026-08-25 13:54:15,709", "level": "INFO", "logger": "aibrix.gpu_optimizer", "message": "Deployment "default/qwen257" found in watch version 53282569, added to the model monitor for "qwen257""}
+{"time": "2026-08-25 13:54:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:54:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:54:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:54:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:55:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:55:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:55:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:55:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:55:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:55:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:56:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:56:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:56:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:56:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:56:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:56:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:57:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:57:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:57:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:57:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:57:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:57:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:58:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:58:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:58:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:58:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:58:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:58:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:59:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:59:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:59:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:59:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:59:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 13:59:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:00:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:00:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:00:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:00:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:00:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:00:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:01:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:01:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:01:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:01:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:01:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:01:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:02:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:02:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:02:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:02:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:02:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:02:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:03:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:03:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:03:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:03:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:03:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:03:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:04:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:04:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:04:15,729", "level": "INFO", "logger": "aibrix.gpu_optimizer", "message": "Deployment "default/qwen257" found in watch version 53289480, added to the model monitor for "qwen257""}
+{"time": "2026-08-25 14:04:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:04:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:04:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:04:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:05:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:05:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:05:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:05:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:05:42,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:05:52,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:06:02,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:06:12,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:06:22,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:06:32,000", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:06:42,002", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:06:52,002", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:07:02,003", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:07:12,003", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:07:22,002", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+{"time": "2026-08-25 14:07:32,001", "level": "INFO", "logger": "aibrix.gpu_optimizer.load_monitor", "message": "qwen257 scaled to minimum, total cost $0.01. Detailed Configuration:[qwen257: 1($0.01)]"}
+4. kubectl exec -i aibrix-redis-master-56cbb99b6b-smzvt -n aibrix-system -- redis-cli keys "*request_trace*" returns nothing. 
+
+
+redis error
+(base) [root@m1 configurations]# kubectl logs -n aibrix-system deploy/aibrix-gateway-plugins | grep -iE "redis|dial|connection|write|error|fail"
+Defaulted container "gateway-plugin" out of: gateway-plugin, init-c (init)
+W0825 13:34:48.439405       1 util.go:101] environment variable REDIS_PASSWORD is not set, using default value: 
+I0825 13:34:48.441794       1 redis.go:45] Connected to Redis: PONG
+I0825 13:34:48.442721       1 cache_init.go:329] "initialize cache" service="metadata" enableKVSync=false hasRedisClient=true hasModelRouterProvider=true enableModelGPUProfileCaching=true enableGPUOptimizerTracing=true
+E0825 13:43:44.179692       1 gateway.go:407] "gateway fail to send response to envoy-proxy" err="rpc error: code = Canceled desc = context canceled" requestID="bc1c8b89-af0b-4975-9a18-4c292451ce38"
+E0825 13:43:44.180549       1 gateway.go:407] "gateway fail to send response to envoy-proxy" err="rpc error: code = Canceled desc = context canceled" requestID="69a19c55-2198-4055-82ab-e7e9670bcb48"
